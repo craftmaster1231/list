@@ -1,5 +1,4 @@
-/cmake-build-debug/
-/main.cpp
-/.gitignore
+/cmake-build-debug
 
 
+main.cpp
