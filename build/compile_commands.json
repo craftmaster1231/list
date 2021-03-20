@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/alex/Documents/list/build",
+  "command": "/bin/g++-9    -g   -std=gnu++14 -o CMakeFiles/List.dir/main.cpp.o -c /home/alex/Documents/list/main.cpp",
+  "file": "/home/alex/Documents/list/main.cpp"
+}
+]
