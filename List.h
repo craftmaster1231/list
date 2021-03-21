@@ -6,11 +6,12 @@
 #define LIST_LIST_H
 
 #include "Node.h"
+
 template <typename T>
 class List{
     int m_size=0;
-    Node<T> * m_head = nullptr;
-    Node<T> * pNode(int number);
+    Node<T>* m_head = nullptr;
+    Node<T>* pNode(int number);
 public:
     const int& size() const;
 
@@ -18,7 +19,7 @@ public:
 
     List(const List & other);
 
-    List<T> & operator= (const List<T> other);
+    List<T> & operator= (const List<T> & other);
 
     T & operator[](int number);
 
@@ -34,15 +35,20 @@ const int& List<T>::size() const{
 
 template<typename T>
 List<T>::List(const List<T>& other){
-    m_size = other.m_size;
-    *this = List<T>(other.m_size);
-    auto otherIter = other.m_head;
-    auto thisIter = m_head;
-    for(int i =0; i < m_size;i++){
-        thisIter->m_value=otherIter->m_value;
-        thisIter = thisIter->next;
-        otherIter = otherIter->next;
-    }
+  m_size = other.m_size;
+  if(m_size ==0){
+      return;
+  }
+  m_head = new Node<T>;
+  m_head->m_value = other.m_head->m_value;
+  Node<T>* thisIter = m_head;
+  Node<T>* otherIter = other.m_head;
+  for(int i = 0; i < m_size-1;i++){
+      thisIter->m_next = new Node<T>;
+      thisIter = thisIter->m_next;
+      otherIter = otherIter->m_next;
+      thisIter->m_value = otherIter->m_value;
+  }
 }
 
 template <typename T>
@@ -58,8 +64,15 @@ Node<T>* List<T>::pNode(int number){
 }
 
 template<typename T>
-List<T>& List<T>::operator= (const List<T> other){
-    *this = List<T>(other);
+List<T>& List<T>::operator= (const List<T> & other){
+    resize(other.m_size);
+    auto iterator = m_head;
+    auto otherIterator = other.m_head;
+    for(int i=0;i< m_size;i++){
+        iterator->m_value = otherIterator->m_value;
+        iterator = iterator->m_next;
+        otherIterator = otherIterator->m_next;
+    }
     return *this;
 }
 
@@ -111,9 +124,9 @@ void List<T>::resize(int newSize){
         return;
     }
     if(newSize > m_size){
-        auto* last = pNode(m_size - 1);
+
         auto newNodes = new Node<T>;
-        last->m_next=newNodes;
+        (m_size==0) ? m_head : pNode(m_size-1)->m_next = newNodes;
         auto currentNewNode = newNodes;
         for(int i=0;i< newSize - m_size - 1; i++){
             currentNewNode->m_next= new Node<T>;
@@ -123,8 +136,9 @@ void List<T>::resize(int newSize){
         return;
     }
 }
+
 template<typename T>
 T & List<T>::operator[](int number){
-    return *pNode(number);
+    return pNode(number)->m_value;
 }
 #endif //LIST_LIST_H

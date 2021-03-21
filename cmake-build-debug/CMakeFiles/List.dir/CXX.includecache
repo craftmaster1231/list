@@ -6,15 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/home/alex/CLionProjects/List/List.h
+/home/alex/Documents/list/List.h
 Node.h
-/home/alex/CLionProjects/List/Node.h
+/home/alex/Documents/list/Node.h
 
-/home/alex/CLionProjects/List/Node.h
+/home/alex/Documents/list/Node.h
 
-/home/alex/CLionProjects/List/main.cpp
+/home/alex/Documents/list/main.cpp
 iostream
 -
 List.h
-/home/alex/CLionProjects/List/List.h
+/home/alex/Documents/list/List.h
 
