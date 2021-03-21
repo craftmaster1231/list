@@ -23,6 +23,7 @@ public:
 
     List(const List &other);
 
+    List (const List<T> &&other);
     List<T> &operator=(const List<T> &other);
 
     T &operator[](int number);
@@ -48,7 +49,7 @@ List<T>::List(const List<T> &other) {
     }
     m_head = new Node<T>;
     m_head->m_value = other.m_head->m_value;
-
+    Node<T> thisPrevNode = m_head;
     Node<T> *thisIter = m_head;
     Node<T> *otherIter = other.m_head;
     for (int i = 0; i < m_size - 1; i++) {
@@ -56,6 +57,7 @@ List<T>::List(const List<T> &other) {
         thisIter = thisIter->m_next;
         otherIter = otherIter->m_next;
         thisIter->m_value = otherIter->m_value;
+        thisIter->m_prev = thisPrevNode;
     }
 }
 
@@ -70,6 +72,14 @@ Node<T> *List<T>::pNode(int number) {
     }
     return currentNode;
 }
+
+template<typename T>
+List<T>::List(const List<T> &&other) {
+    m_size = other.m_size;
+    m_head = other.m_head;
+    other.m_head = nullptr;
+}
+
 
 template<typename T>
 List<T> &List<T>::operator=(const List<T> &other) {
