@@ -19,6 +19,8 @@ public:
 
     List(int size);
 
+    ~List();
+
     List(const List &other);
 
     List<T> &operator=(const List<T> &other);
@@ -34,7 +36,7 @@ public:
 };
 
 template<typename T>
-const int &List<T>::size() const {
+int List<T>::size() const {
     return m_size;
 }
 
@@ -93,6 +95,11 @@ List<T>::List(int size) {
         currentNode->m_next = new Node<T>;
         currentNode = currentNode->m_next;
     }
+}
+
+template<typename T>
+List<T>::~List(){
+    resize(0);
 }
 
 template<typename T>
