@@ -24,7 +24,10 @@ public:
     List(const List &other);
 
     List (const List<T> &&other);
+
     List<T> &operator=(const List<T> &other);
+
+    List<T> &operator=(const List<T> &&other);
 
     T &operator[](int number);
 
@@ -91,6 +94,14 @@ List<T> &List<T>::operator=(const List<T> &other) {
         iterator = iterator->m_next;
         otherIterator = otherIterator->m_next;
     }
+    return *this;
+}
+
+template<typename T>
+List<T> &List<T>::operator=(const List<T> &&other) {
+    m_size = other.m_size;
+    m_head = other.m_head;
+    other.m_head = nullptr;
     return *this;
 }
 
