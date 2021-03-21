@@ -15,7 +15,7 @@ class List {
     Node<T> *pNode(int number);
 
 public:
-    const int &size() const;
+    int size() const;
 
     List(int size);
 
@@ -148,8 +148,8 @@ T &List<T>::operator[](int number) {
     return pNode(number)->m_value;
 }
 
-template <typename T>
-const T& List<T>::operator[](int number) const {
+template<typename T>
+const T &List<T>::operator[](int number) const {
     return pNode(number)->m_value;
 }
 
