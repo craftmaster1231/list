@@ -148,5 +148,10 @@ T &List<T>::operator[](int number) {
     return pNode(number)->m_value;
 }
 
+template <typename T>
+const T& List<T>::operator[](int number) const {
+    return pNode(number)->m_value;
+}
+
 
 #endif //LIST_LIST_H
