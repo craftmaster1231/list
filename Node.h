@@ -9,15 +9,8 @@ template<typename T>
 struct Node {
     T m_value = {};
     Node *m_next = nullptr;
+    Node *m_prev = nullptr;
 
-    Node() {
-        ;
-        std::cout << "Created!\t" << this << std::endl;
-    }
-
-    ~Node() {
-        std::cout << "Deleted!\n" << this << std::endl;
-    }
 };
 
 #endif //LIST_NODE_H
