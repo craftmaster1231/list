@@ -10,7 +10,6 @@ struct Node {
     T m_value = {};
     Node *m_next = nullptr;
     Node *m_prev = nullptr;
-
 };
 
 #endif //LIST_NODE_H

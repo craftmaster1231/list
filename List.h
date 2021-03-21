@@ -107,19 +107,7 @@ List<T> &List<T>::operator=(const List<T> &&other) {
 
 template<typename T>
 List<T>::List(int size) {
-    m_size = size;
-    if (size == 0) {
-        return;
-    }
-    m_head = new Node<T>;
-    auto currentNode = m_head;
-    auto prevNode = m_head;
-    for (int i = 0; i < size - 1; i++) {
-        currentNode->m_next = new Node<T>;
-        currentNode->m_prev = prevNode;
-        currentNode = currentNode->m_next;
-        prevNode = prevNode->m_next;
-    }
+   resize(size);
 }
 
 template<typename T>
@@ -164,7 +152,11 @@ void List<T>::resize(int newSize) {
     if (newSize > m_size) {
 
         auto newNodes = new Node<T>;
-        (m_size == 0) ? m_head : pNode(m_size - 1)->m_next = newNodes;
+        if (m_size == 0){
+            m_head = newNodes;
+        } else {
+            pNode(m_size - 1)->m_next = newNodes;
+        }
         auto currentNewNode = newNodes;
         for (int i = 0; i < newSize - m_size - 1; i++) {
             currentNewNode->m_next = new Node<T>;
