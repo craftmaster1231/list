@@ -15,6 +15,22 @@ class List {
     Node<T> *pNode(int number);
 
 public:
+    struct iterator {
+        void operator* (){
+            return *ptr->value;
+        }
+        void operator++(){
+            ptr = ptr->m_next;
+            return *ptr->m_value;
+        }
+        void operator++(int){
+            ptr = ptr->m_next;
+            return *ptr->m_prev->m_value;
+        }
+
+    private:
+        Node<T> *ptr;
+    };
     int size() const;
 
     List(int size);
@@ -45,23 +61,8 @@ int List<T>::size() const {
 }
 
 template<typename T>
-List<T>::List(const List<T> &other) {
-    m_size = other.m_size;
-    if (m_size == 0) {
-        return;
-    }
-    m_head = new Node<T>;
-    m_head->m_value = other.m_head->m_value;
-    Node<T> *thisPrevNode = m_head;
-    Node<T> *thisIter = m_head;
-    Node<T> *otherIter = other.m_head;
-    for (int i = 0; i < m_size - 1; i++) {
-        thisIter->m_next = new Node<T>;
-        thisIter = thisIter->m_next;
-        otherIter = otherIter->m_next;
-        thisIter->m_value = otherIter->m_value;
-        thisIter->m_prev = thisPrevNode;
-    }
+List<T>::List(const List<T> &other) { //Edit after doing iterator
+    resize(other.m_size);
 }
 
 template<typename T>
