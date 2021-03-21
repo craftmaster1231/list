@@ -52,7 +52,7 @@ List<T>::List(const List<T> &other) {
     }
     m_head = new Node<T>;
     m_head->m_value = other.m_head->m_value;
-    Node<T> thisPrevNode = m_head;
+    Node<T> *thisPrevNode = m_head;
     Node<T> *thisIter = m_head;
     Node<T> *otherIter = other.m_head;
     for (int i = 0; i < m_size - 1; i++) {
