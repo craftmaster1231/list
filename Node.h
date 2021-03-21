@@ -4,16 +4,20 @@
 
 #ifndef LIST_NODE_H
 #define LIST_NODE_H
-template <typename T>
-struct Node{
+
+template<typename T>
+struct Node {
     T m_value = {};
-    Node* m_next = nullptr;
-    Node(){
+    Node *m_next = nullptr;
+
+    Node() {
         ;
-        std::cout<<"Created!\t" << this << std::endl;
+        std::cout << "Created!\t" << this << std::endl;
     }
-    ~Node(){
+
+    ~Node() {
         std::cout << "Deleted!\n" << this << std::endl;
     }
 };
+
 #endif //LIST_NODE_H
