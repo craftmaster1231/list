@@ -66,6 +66,8 @@ public:
 
     List<T> &operator=(const List<T> &);
 
+    List<T> &operator=(List<T> &&);
+
     iterator first() {
         return iterator(m_head);
     }
@@ -123,6 +125,13 @@ List<T> &List<T>::operator=(const List<T> &other) {
         otherIt++;
     }
 return *this;
+}
+template<typename T>
+List<T> &List<T>::operator=(List<T> && other) {
+    resize(other.m_size);
+    m_head = other.m_head;
+    other.m_head = nullptr;
+    return *this;
 }
 
 template<typename T>
