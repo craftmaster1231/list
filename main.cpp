@@ -3,7 +3,7 @@
 
 
 int main() {
-    List<int> list;
+    List<int> list(0);
     list.resize(5);
     list. resize(2);
     list.resize(4);

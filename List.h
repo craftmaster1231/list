@@ -30,7 +30,6 @@ class List {
     Node *m_head = nullptr;
     Node *m_last = nullptr;
 public:
-    void resize(int);
     struct iterator {
     private:
         Node *ptr;
@@ -48,7 +47,33 @@ public:
             return ptr->m_value;
         }
     };
+
+    List(int);
+
+//    List(const List<T> &);
+
+    iterator first(){
+        return m_head;
+    }
+
+    iterator last(){
+        return m_last;
+    }
+
+    void resize(int);
+
+
 };
+
+template<typename T>
+List<T>::List(int size) {
+    resize(size);
+}
+
+//template<typename T>
+//List<T>::List(const List<T> & other) {
+//    resize(other.m_size);
+//}
 
 template<typename T>
 void List<T>::resize(int newSize) {
