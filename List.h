@@ -29,9 +29,10 @@ class List {
     Node *m_head = nullptr;
     Node *m_last = nullptr;
 public:
+
     struct iterator {
     private:
-        Node *ptr;
+        Node *ptr = nullptr;
     public:
         iterator(Node *ptr_) {
             ptr = ptr_;
@@ -39,20 +40,20 @@ public:
 
         iterator operator++() {
             ptr = ptr->m_next;
-            return *this;
+            return iterator(ptr->m_prev);
         }
 
         iterator operator++(int) {
             ptr = ptr->m_next;
-            return iterator{ptr->m_prev};
+            return *this;
         }
 
-        iterator operator+(int) {
-            ptr = ptr->m_next;
-            return iterator(ptr->m_prev);
-        }
+
 
         T &operator*() {
+            return ptr->m_value;
+        }
+        const T &operator*() const{
             return ptr->m_value;
         }
     };
@@ -69,10 +70,17 @@ public:
         return iterator(m_head);
     }
 
+
+    const iterator first() const {
+        return iterator(m_head);
+    }
+
     iterator last() {
         return iterator(m_last);
     }
-
+    const iterator last() const {
+        return iterator(m_last);
+    }
     void resize(int);
 
 
@@ -108,10 +116,7 @@ List<T> &List<T>::operator=(const List<T> &other) {
     resize(other.m_size);
     iterator it = first();
     List<T>::iterator otherIt = other.first();
-    /*
-     * error: passing ‘const List<int>’ as ‘this’ argument discards qualifiers [-fpermissive]
-     * List<T>::iterator otherIt = other.first();
-     */
+
     for (int i = 0; i < m_size; i++) {
         *it = *otherIt;
         it++;
@@ -127,7 +132,7 @@ void List<T>::resize(int newSize) {
     }
     if (newSize > m_size) {
         Node *newNodes = new Node;
-        if (m_head == 0) {
+        if (m_head == nullptr) {
             m_head = newNodes;
         } else {
             m_last->m_next = newNodes;
