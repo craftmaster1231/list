@@ -5,7 +5,6 @@
 #ifndef LIST_LIST_H
 #define LIST_LIST_H
 
-#include "Node.h"
 
 template<typename T>
 class List {
