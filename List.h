@@ -33,9 +33,10 @@ public:
     private:
         Node *ptr;
     public:
-        iterator(Node* ptr_){
+        iterator(Node *ptr_) {
             ptr = ptr_;
         }
+
         iterator operator++() {
             ptr = ptr->m_next;
             return *this;
@@ -60,7 +61,9 @@ public:
 
     List(const List<T> &);
 
-    List(List<T> && other);
+    List(List<T> &&other);
+
+    List<T> &operator=(const List<T> &);
 
     iterator first() {
         return iterator(m_head);
@@ -83,8 +86,8 @@ List<T>::List(int size) {
 template<typename T>
 List<T>::List(const List<T> &other) {
     resize(other.m_size);
-    List<T>::iterator it = first();
-    List<T>::iterator otherIt = first();
+    iterator it = first();
+    iterator otherIt = other.first();
     for (int i; i < m_size; i++) {
         *it = *otherIt;
         it++;
@@ -93,11 +96,24 @@ List<T>::List(const List<T> &other) {
 }
 
 template<typename T>
-List<T>::List(List<T> && other) {
+List<T>::List(List<T> &&other) {
     m_size = other.m_size;
     m_head = other.m_head;
     other.m_head = nullptr;
     other.m_size = 0;
+}
+
+template<typename T>
+List<T> &List<T>::operator=(const List<T> &other) {
+    resize(other.m_size);
+    iterator it = first();
+    iterator otherIt = other.first();
+    for (int i = 0; i < m_size; i++) {
+        *it = *otherIt;
+        it++;
+        otherIt++;
+    }
+return *this;
 }
 
 template<typename T>
