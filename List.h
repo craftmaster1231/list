@@ -107,7 +107,11 @@ template<typename T>
 List<T> &List<T>::operator=(const List<T> &other) {
     resize(other.m_size);
     iterator it = first();
-    iterator otherIt = other.first();
+    List<T>::iterator otherIt = other.first();
+    /*
+     * error: passing ‘const List<int>’ as ‘this’ argument discards qualifiers [-fpermissive]
+     * List<T>::iterator otherIt = other.first();
+     */
     for (int i = 0; i < m_size; i++) {
         *it = *otherIt;
         it++;
