@@ -68,6 +68,9 @@ public:
 
     List<T> &operator=(List<T> &&);
 
+    ~List() {
+        resize(0);
+    }
     iterator first() {
         return iterator(m_head);
     }
