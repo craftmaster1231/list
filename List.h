@@ -60,6 +60,8 @@ public:
 
     List(const List<T> &);
 
+    List(List<T> && other);
+
     iterator first() {
         return iterator(m_head);
     }
@@ -88,6 +90,14 @@ List<T>::List(const List<T> &other) {
         it++;
         otherIt++;
     }
+}
+
+template<typename T>
+List<T>::List(List<T> && other) {
+    m_size = other.m_size;
+    m_head = other.m_head;
+    other.m_head = nullptr;
+    other.m_size = 0;
 }
 
 template<typename T>
