@@ -25,7 +25,6 @@ class List {
     };
 
 
-
     int m_size = 0;
     Node *m_head = nullptr;
     Node *m_last = nullptr;
@@ -34,15 +33,24 @@ public:
     private:
         Node *ptr;
     public:
+        iterator(Node* ptr_){
+            ptr = ptr_;
+        }
         iterator operator++() {
             ptr = ptr->m_next;
             return *this;
+        }
+
+        iterator operator++(int) {
+            ptr = ptr->m_next;
+            return iterator{ptr->m_prev};
         }
 
         iterator operator+(int) {
             ptr = ptr->m_next;
             return iterator(ptr->m_prev);
         }
+
         T &operator*() {
             return ptr->m_value;
         }
@@ -50,14 +58,14 @@ public:
 
     List(int);
 
-//    List(const List<T> &);
+    List(const List<T> &);
 
-    iterator first(){
-        return m_head;
+    iterator first() {
+        return iterator(m_head);
     }
 
-    iterator last(){
-        return m_last;
+    iterator last() {
+        return iterator(m_last);
     }
 
     void resize(int);
@@ -70,10 +78,17 @@ List<T>::List(int size) {
     resize(size);
 }
 
-//template<typename T>
-//List<T>::List(const List<T> & other) {
-//    resize(other.m_size);
-//}
+template<typename T>
+List<T>::List(const List<T> &other) {
+    resize(other.m_size);
+    List<T>::iterator it = first();
+    List<T>::iterator otherIt = first();
+    for (int i; i < m_size; i++) {
+        *it = *otherIt;
+        it++;
+        otherIt++;
+    }
+}
 
 template<typename T>
 void List<T>::resize(int newSize) {
@@ -82,16 +97,16 @@ void List<T>::resize(int newSize) {
     }
     if (newSize > m_size) {
         Node *newNodes = new Node;
-        if(m_head == 0) {
+        if (m_head == 0) {
             m_head = newNodes;
         } else {
             m_last->m_next = newNodes;
             newNodes->m_prev = m_last;
         }
         Node *iter = newNodes;
-        for(int i=0; i< newSize - m_size -1;i++){
+        for (int i = 0; i < newSize - m_size - 1; i++) {
             iter->m_next = new Node;
-            iter->m_next->m_prev =iter;
+            iter->m_next->m_prev = iter;
             iter = iter->m_next;
         }
         m_last = iter; // =)
@@ -100,7 +115,7 @@ void List<T>::resize(int newSize) {
     }
     if (newSize < m_size) {
         Node *iter = m_last;
-        for(int i = 0; i< m_size - newSize; i++) {
+        for (int i = 0; i < m_size - newSize; i++) {
             Node *nextToDel = iter->m_prev;
             delete iter;
             iter = nextToDel;
