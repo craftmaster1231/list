@@ -9,16 +9,28 @@
 template<typename T>
 class List {
     struct Node {
-    private:
         T m_value = {};
         Node *m_next = nullptr;
         Node *m_prev = nullptr;
 
-        Node() { std::cout << "New"; }
+        Node() {
+            std::cout << "New ";
+            std::cout.flush();
+        }
 
-        ~Node() { std::cout << "Del"; }
+        ~Node() {
+            std::cout << "Del ";
+            std::cout.flush();
+        }
     };
 
+
+
+    int m_size = 0;
+    Node *m_head = nullptr;
+    Node *m_last = nullptr;
+public:
+    void resize(int);
     struct iterator {
     private:
         Node *ptr;
@@ -36,12 +48,6 @@ class List {
             return ptr->m_value;
         }
     };
-
-    int m_size = 0;
-    Node *m_head = nullptr;
-    Node *m_last = nullptr;
-
-    void resize(int);
 };
 
 template<typename T>
@@ -50,7 +56,34 @@ void List<T>::resize(int newSize) {
         return;
     }
     if (newSize > m_size) {
-
+        Node *newNodes = new Node;
+        if(m_head == 0) {
+            m_head = newNodes;
+        } else {
+            m_last->m_next = newNodes;
+            newNodes->m_prev = m_last;
+        }
+        Node *iter = newNodes;
+        for(int i=0; i< newSize - m_size -1;i++){
+            iter->m_next = new Node;
+            iter->m_next->m_prev =iter;
+            iter = iter->m_next;
+        }
+        m_last = iter; // =)
+        m_size = newSize;
+        return;
+    }
+    if (newSize < m_size) {
+        Node *iter = m_last;
+        for(int i = 0; i< m_size - newSize; i++) {
+            Node *nextToDel = iter->m_prev;
+            delete iter;
+            iter = nextToDel;
+        }
+        m_last = iter;
+        m_last->m_next = nullptr; // =)
+        m_size = newSize;
+        return;
     }
 }
 
