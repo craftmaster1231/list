@@ -39,11 +39,17 @@ public:
         }
 
         iterator operator++() {
+            if(ptr == nullptr) {
+                return nullptr;
+            }
             ptr = ptr->m_next;
             return iterator(ptr->m_prev);
         }
 
         iterator operator++(int) {
+            if (ptr == nullptr) {
+                return nullptr;
+            }
             ptr = ptr->m_next;
             return *this;
         }
@@ -51,9 +57,15 @@ public:
 
 
         T &operator*() {
+            if(ptr == nullptr) {
+                std::cout << "*nullptr ???" << std::endl;
+            }
             return ptr->m_value;
         }
         const T &operator*() const{
+            if(ptr == nullptr) {
+                std::cout << "*nullptr ???" << std::endl;
+            }
             return ptr->m_value;
         }
     };
