@@ -6,6 +6,7 @@
 #define LIST_LIST_H
 
 #include <vector>
+
 template<typename T>
 class List {
     struct Node {
@@ -39,7 +40,7 @@ public:
         }
 
         iterator operator++() {
-            if(ptr->m_next == nullptr) {
+            if (ptr->m_next == nullptr) {
                 return *this;
             }
             ptr = ptr->m_next;
@@ -54,15 +55,17 @@ public:
             ptr = ptr->m_next;
             return temp;
         }
-        T &operator-- () {
-            if (ptr->m_prev == nullptr ) {
+
+        T &operator--() {
+            if (ptr->m_prev == nullptr) {
                 return *this;
             }
             ptr = ptr->m_prev;
             return *this;
         };
-        T &operator-- (int) {
-            if (ptr->m_prev == nullptr ) {
+
+        T &operator--(int) {
+            if (ptr->m_prev == nullptr) {
                 return *this;
             }
             auto temp = *this;
@@ -73,7 +76,8 @@ public:
         T &operator*() {
             return ptr->m_value;
         }
-        const T &operator*() const{
+
+        const T &operator*() const {
             return ptr->m_value;
         }
     };
@@ -93,6 +97,7 @@ public:
     ~List() {
         resize(0);
     }
+
     iterator first() {
         return iterator(m_head);
     }
@@ -105,14 +110,15 @@ public:
     iterator last() {
         return iterator(m_last);
     }
+
     const iterator last() const {
         return iterator(m_last);
     }
+
     void resize(int);
 
 
 };
-
 
 
 template<typename T>
@@ -146,10 +152,11 @@ List<T> &List<T>::operator=(const List<T> &other) {
         ++it;
         ++otherIt;
     }
-return *this;
+    return *this;
 }
+
 template<typename T>
-List<T> &List<T>::operator=(List<T> && other) {
+List<T> &List<T>::operator=(List<T> &&other) {
     resize(other.m_size);
     m_head = other.m_head;
     other.m_head = nullptr;
@@ -188,10 +195,10 @@ void List<T>::resize(int newSize) {
             delete iter;
             iter = nextToDel;
         }
-        if(newSize == 0){
+        if (newSize == 0) {
             m_head = nullptr;
             m_last = nullptr;
-            m_size=0;
+            m_size = 0;
             return;
         }
         m_last = iter;
