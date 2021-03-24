@@ -137,6 +137,8 @@ List<T> &List<T>::operator=(List<T> && other) {
     resize(other.m_size);
     m_head = other.m_head;
     other.m_head = nullptr;
+    other.m_last = nullptr;
+    other.m_size = 0;
     return *this;
 }
 
