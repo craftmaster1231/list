@@ -39,16 +39,16 @@ public:
         }
 
         iterator operator++() {
-            if(ptr == nullptr) {
-                return nullptr;
+            if(ptr->m_next == nullptr) {
+                return *this;
             }
             ptr = ptr->m_next;
             return iterator(ptr->m_prev);
         }
 
         iterator operator++(int) {
-            if (ptr == nullptr) {
-                return nullptr;
+            if (ptr->m_next == nullptr) {
+                return *this;
             }
             ptr = ptr->m_next;
             return *this;
