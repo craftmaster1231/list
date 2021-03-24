@@ -43,16 +43,32 @@ public:
                 return *this;
             }
             ptr = ptr->m_next;
-            return iterator(ptr->m_prev);
+            return *this;
         }
 
         iterator operator++(int) {
             if (ptr->m_next == nullptr) {
                 return *this;
             }
+            auto temp = *this;
             ptr = ptr->m_next;
-            return *this;
+            return temp;
         }
+        T &operator-- () {
+            if (ptr->m_prev == nullptr ) {
+                return *this;
+            }
+            ptr = ptr->m_prev;
+            return *this;
+        };
+        T &operator-- (int) {
+            if (ptr->m_prev == nullptr ) {
+                return *this;
+            }
+            auto temp = *this;
+            ptr = ptr->m_prev;
+            return temp;
+        };
 
         T &operator*() {
             return ptr->m_value;
