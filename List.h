@@ -5,7 +5,7 @@
 #ifndef LIST_LIST_H
 #define LIST_LIST_H
 
-
+#include <vector>
 template<typename T>
 class List {
     struct Node {
@@ -54,8 +54,6 @@ public:
             return *this;
         }
 
-
-
         T &operator*() {
             if(ptr == nullptr) {
                 std::cout << "*nullptr ???" << std::endl;
@@ -70,7 +68,9 @@ public:
         }
     };
 
-    List(int);
+    List(int size = 0) {
+        resize(size);
+    }
 
     List(const List<T> &);
 
@@ -103,10 +103,7 @@ public:
 
 };
 
-template<typename T>
-List<T>::List(int size) {
-    resize(size);
-}
+
 
 template<typename T>
 List<T>::List(const List<T> &other) {
@@ -132,12 +129,12 @@ template<typename T>
 List<T> &List<T>::operator=(const List<T> &other) {
     resize(other.m_size);
     iterator it = first();
-    List<T>::iterator otherIt = other.first();
+    iterator otherIt = other.first();
 
     for (int i = 0; i < m_size; i++) {
         *it = *otherIt;
-        it++;
-        otherIt++;
+        ++it;
+        ++otherIt;
     }
 return *this;
 }
