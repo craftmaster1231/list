@@ -170,6 +170,12 @@ void List<T>::resize(int newSize) {
             delete iter;
             iter = nextToDel;
         }
+        if(newSize == 0){
+            m_head = nullptr;
+            m_last = nullptr;
+            m_size=0;
+            return;
+        }
         m_last = iter;
         m_last->m_next = nullptr; // =)
         m_size = newSize;
