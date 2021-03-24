@@ -55,15 +55,9 @@ public:
         }
 
         T &operator*() {
-            if(ptr == nullptr) {
-                std::cout << "*nullptr ???" << std::endl;
-            }
             return ptr->m_value;
         }
         const T &operator*() const{
-            if(ptr == nullptr) {
-                std::cout << "*nullptr ???" << std::endl;
-            }
             return ptr->m_value;
         }
     };
