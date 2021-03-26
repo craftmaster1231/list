@@ -5,6 +5,7 @@
 #ifndef LIST_LIST_H
 #define LIST_LIST_H
 
+#include <iostream>
 #include <vector>
 
 template<typename T>
@@ -80,6 +81,10 @@ public:
         const T &operator*() const {
             return ptr->m_value;
         }
+
+        Node *get() const {
+            return ptr;
+        }
     };
 
     List(int size = 0) {
@@ -117,7 +122,27 @@ public:
 
     void resize(int);
 
+    void insert(const iterator &it) {
+        if (it.get() == m_head) {
+            m_head = new Node;
+            m_head->m_next = it.get();
+            it.get()->m_prev = m_head;
+            m_size++;
+            m_last = m_head;
+        } else {
+            Node *tmp = new Node;
+            tmp->m_next = it.get();
+            tmp->m_prev = it.get()->m_prev;
+            it.get()->m_prev = tmp;
+            it.get()->m_prev->m_next = it.get();
+            m_size++;
+            if (it.get() == m_last) {
+                m_last = tmp;
+            }
+        }
 
+
+    }
 };
 
 
@@ -139,6 +164,7 @@ List<T>::List(List<T> &&other) {
     m_head = other.m_head;
     other.m_head = nullptr;
     other.m_size = 0;
+    m_last = other.m_last;
 }
 
 template<typename T>
