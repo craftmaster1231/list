@@ -6,7 +6,10 @@
 #define LIST_LIST_H
 
 #include <iostream>
+<<<<<<< HEAD
 #include <vector>
+=======
+>>>>>>> 4206b313f2d3da3d5550d7fb79b8f2b871d14dae
 
 template<typename T>
 class List {
@@ -84,6 +87,31 @@ public:
 
         Node *get() const {
             return ptr;
+        }
+
+        bool operator== (const iterator &other) const {
+            return (other.ptr == ptr);
+        }
+
+        bool operator!= (const iterator &other) const {
+            return (other.ptr != ptr);
+        }
+
+        bool operator> (const iterator &other) const {
+            return (ptr > other.ptr);
+        }
+
+        bool operator>= (const iterator &other) const {
+            return (ptr >= other.ptr);
+        }
+
+        bool operator< (const iterator &other) const {
+            return (ptr < other.ptr);
+        }
+
+        bool operator<= (const iterator &other) const {
+            return (ptr <= other.ptr);
+>>>>>>> 4206b313f2d3da3d5550d7fb79b8f2b871d14dae
         }
     };
 
@@ -165,6 +193,7 @@ List<T>::List(List<T> &&other) {
     other.m_head = nullptr;
     other.m_size = 0;
     m_last = other.m_last;
+    other.m_last = nullptr;
 }
 
 template<typename T>
