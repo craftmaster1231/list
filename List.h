@@ -6,10 +6,7 @@
 #define LIST_LIST_H
 
 #include <iostream>
-<<<<<<< HEAD
-#include <vector>
-=======
->>>>>>> 4206b313f2d3da3d5550d7fb79b8f2b871d14dae
+
 
 template<typename T>
 class List {
@@ -111,7 +108,6 @@ public:
 
         bool operator<= (const iterator &other) const {
             return (ptr <= other.ptr);
->>>>>>> 4206b313f2d3da3d5550d7fb79b8f2b871d14dae
         }
     };
 
