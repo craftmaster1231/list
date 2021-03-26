@@ -134,6 +134,7 @@ public:
 
     const iterator first() const {
         return iterator(m_head);
+
     }
 
     iterator last() {
@@ -145,30 +146,31 @@ public:
     }
 
     void resize(int);
-
-    void insert(const iterator &it) {
-        if (it.get() == m_head) {
-            m_head = new Node;
-            m_head->m_next = it.get();
-            it.get()->m_prev = m_head;
-            m_size++;
-            m_last = m_head;
-        } else {
-            Node *tmp = new Node;
-            tmp->m_next = it.get();
-            tmp->m_prev = it.get()->m_prev;
-            it.get()->m_prev = tmp;
-            it.get()->m_prev->m_next = it.get();
-            m_size++;
-            if (it.get() == m_last) {
-                m_last = tmp;
-            }
-        }
-
-
-    }
+//
+//    void insert(const iterator &it, T& value) {
+//        if (it.get() == m_head) {
+//            m_head = new Node;
+//            m_head->m_next = it.get();
+//            it.get()->m_prev = m_head;
+//            m_size++;
+//            m_last = m_head;
+//        } else {
+//            Node *tmp = new Node;
+//            tmp->m_next = it.get();
+//            tmp->m_prev = it.get()->m_prev;
+//            it.get()->m_prev = tmp;
+//            it.get()->m_prev->m_next = it.get();
+//            m_size++;
+//            if (it.get() == m_last) {
+//                m_last = tmp;
+//            }
+//        }
+//    }
+//
+//    void push_back(T & value) {
+//        insert(iterator(m_last), value);
+//    }
 };
-
 
 template<typename T>
 List<T>::List(const List<T> &other) {
@@ -194,6 +196,9 @@ List<T>::List(List<T> &&other) {
 
 template<typename T>
 List<T> &List<T>::operator=(const List<T> &other) {
+    if(&other == this) {
+        return *this;
+    }
     resize(other.m_size);
     iterator it = first();
     iterator otherIt = other.first();
@@ -208,6 +213,9 @@ List<T> &List<T>::operator=(const List<T> &other) {
 
 template<typename T>
 List<T> &List<T>::operator=(List<T> &&other) {
+    if(&other == this) {
+        return *this;
+    }
     resize(other.m_size);
     m_head = other.m_head;
     other.m_head = nullptr;

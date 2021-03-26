@@ -3,6 +3,7 @@
 #include <list>
 
 int main() {
-    List<int> a(5);
-    List <int> b = std::move(a);
+    //auto&& ref = std::move(a);
+    List<int> l1(5);
+    l1 = std::move(l1);
 }
