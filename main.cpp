@@ -1,9 +1,20 @@
 #include "List.h"
-#include <string>
-#include <list>
+
+template <typename T>
+void print(const List<T>& toPrint) {
+    typename List<T>::iterator it = toPrint.first();
+    while(it != nullptr) {
+        std::cout<<*it<<' ';
+        ++it;
+    }
+    std::cout<<std::endl;
+}
+
+//void foo(int*);
+void foo(List<int>);
 
 int main() {
-    //auto&& ref = std::move(a);
-    List<int> l1(5);
-    l1 = std::move(l1);
+    List<int> l(5);
+    print(l);
+
 }

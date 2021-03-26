@@ -41,16 +41,16 @@ public:
         }
 
         iterator operator++() {
-            if (ptr->m_next == nullptr) {
-                return *this;
+            if (ptr == nullptr) {
+                return nullptr;
             }
             ptr = ptr->m_next;
             return *this;
         }
 
         iterator operator++(int) {
-            if (ptr->m_next == nullptr) {
-                return *this;
+            if (ptr == nullptr) {
+                return nullptr;
             }
             auto temp = *this;
             ptr = ptr->m_next;
@@ -58,16 +58,16 @@ public:
         }
 
         T &operator--() {
-            if (ptr->m_prev == nullptr) {
-                return *this;
+            if (ptr == nullptr) {
+                return nullptr;
             }
             ptr = ptr->m_prev;
             return *this;
         };
 
         T &operator--(int) {
-            if (ptr->m_prev == nullptr) {
-                return *this;
+            if (ptr == nullptr) {
+                return nullptr;
             }
             auto temp = *this;
             ptr = ptr->m_prev;
@@ -111,7 +111,7 @@ public:
         }
     };
 
-    List(int size = 0) {
+    explicit List(int size = 0) {
         resize(size);
     }
 
